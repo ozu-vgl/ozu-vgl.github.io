@@ -1,0 +1,42 @@
+name: Update Publications
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+
+jobs:
+  generate-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Get New Publications
+        run: |
+          utils/scholar_scraper.py
+
+      - name: Update publications.html
+        run: |
+          utils/copy_scraped_publications.py
+
+      - name: Commit Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add main_template.html
+          git commit -m "Update HTML content"
+          git push
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Auto-generated HTML update"
+          title: "Auto-generated HTML Update"
+          body: "This PR updates the HTML content."
