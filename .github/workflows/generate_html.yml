@@ -41,11 +41,3 @@ jobs:
           git add publications.html
           git commit -m "Update HTML content"
           git push
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Auto-generated HTML update"
-          title: "Auto-generated HTML Update"
-          body: "This PR updates the HTML content."
