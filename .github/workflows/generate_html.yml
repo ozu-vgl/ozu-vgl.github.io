@@ -20,11 +20,11 @@ jobs:
 
       - name: Get New Publications
         run: |
-          utils/scholar_scraper.py
+          python3 utils/scholar_scraper.py
 
       - name: Update publications.html
         run: |
-          utils/copy_scraped_publications.py
+          python3 utils/copy_scraped_publications.py
 
       - name: Commit Changes
         run: |
