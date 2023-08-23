@@ -38,7 +38,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add main_template.html
+          git add publications.html
           git commit -m "Update HTML content"
           git push
 
