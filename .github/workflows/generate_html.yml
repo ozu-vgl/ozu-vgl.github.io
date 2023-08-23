@@ -26,10 +26,12 @@ jobs:
 
       - name: Get New Publications
         run: |
+          source venv/bin/activate
           python3 utils/scholar_scraper.py
 
       - name: Update publications.html
         run: |
+          source venv/bin/activate
           python3 utils/copy_scraped_publications.py
 
       - name: Commit Changes
