@@ -31,7 +31,9 @@ def scrape_google_scholar(username):
         else:
             break
 
-    return articles
+    filtered_articles = [article for article in articles if article["year"].isdigit() and "arXiv" not in article["journal"] and "Ozyegin University" not in article["journal"] and len(article["journal"]) > 1]
+    sorted_articles_descending = sorted(filtered_articles, key=lambda article: int(article["year"]), reverse=True)
+    return sorted_articles_descending
 
 def parse_articles(soup):
     articles = []
@@ -42,7 +44,6 @@ def parse_articles(soup):
             authors = article.find("div", class_="gs_gray").text
             journal = article.find("div", class_="gs_gray").find_next("div", class_="gs_gray").text
             year = article.find("td", {"class": "gsc_a_y"}).text
-            print(title)
 
             articles.append({
                 "title": title,
@@ -50,33 +51,73 @@ def parse_articles(soup):
                 "journal": journal,
                 "year": year
             })
+
     return articles
 
-def to_html(articles):
-    html_content = ""
-    for article in articles:
-        title = article["title"]
-        authors = article["authors"]
-        journal = article["journal"]
-        year = article["year"]
+def to_html(articles, start_year):
+    lab_articles = [article for article in articles if int(article["year"]) >= start_year]
+    html_content = f"""
+        <div class="announcement-container">
+            <p>Our website is still under development; some content might be incomplete or missing.</p>
+        </div>
 
-        html_content += f"""<div class="publication-container">
-        <div class="thumbnail-section">
-            <img src="assets/publications/NTIRE_2023.png" alt="Thumbnail">
-        </div>
-        <div class="info-section">      
-            <h3>{title}</h3>
-            <p>Published in: {journal}</p>
-            <p>Authors: {authors}</p>
-            <p>Year: {year}</p>
-        </div>
-        </div>
+        <h2>Publications</h2>
+        <div class="line"></div>
+
     """
+    paper_id = 0
+    articles_by_year = {}
+
+    # Organize articles into lists by year
+    for article in lab_articles:
+        year = article["year"]
+        if year in articles_by_year:
+            articles_by_year[year].append(article)
+        else:
+            articles_by_year[year] = [article]
+
+    # Convert the dictionary values into a list of lists
+    yearly_article_dict = articles_by_year
+
+    # Get the sorted list of years
+    sorted_years = sorted(yearly_article_dict.keys(), key=int, reverse=True)
+
+    # Iterate over the articles starting from the lowest year
+    for year in sorted_years:
+        articles_for_year = yearly_article_dict[year]
+        
+        html_content += f"""
+
+        <h3>{year}</h3> 
+        
+        """
+
+        for article in articles_for_year:
+            paper_id += 1
+
+            title = article["title"]
+            authors = article["authors"]
+            journal = article["journal"]
+            year = article["year"]
+
+            html_content += f"""<div class="publication-container">
+            <div class="thumbnail-section">
+                <img src="assets/publications/paper_{len(lab_articles)-paper_id}.png" alt="Thumbnail">
+            </div>
+            <div class="info-section">      
+                <h3>{title}</h3>
+                <p>Published in: {journal}</p>
+                <p>Authors: {authors}</p>
+                <p>Year: {year}</p>
+            </div>
+            </div>
+        """
     return html_content
 
 if __name__ == "__main__":
     username = "kdJBxv8AAAAJ&hl=en"
+    start_year = 2016
     articles = scrape_google_scholar(username)
-    articles_html = to_html(articles)
+    articles_html = to_html(articles, start_year=start_year)
     with open("utils/scraped_publications.html", "w", encoding="utf-8") as html_file:
         html_file.write(articles_html)
