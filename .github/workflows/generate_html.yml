@@ -18,6 +18,12 @@ jobs:
         with:
           python-version: 3.x
 
+      - name: Install Dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r utils/requirements.txt
+
       - name: Get New Publications
         run: |
           python3 utils/scholar_scraper.py
