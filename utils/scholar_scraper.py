@@ -93,16 +93,18 @@ def to_html(articles, start_year):
         """
 
         for article in articles_for_year:
-            paper_id += 1
 
             title = article["title"]
             authors = article["authors"]
             journal = article["journal"]
             year = article["year"]
 
+            first_letters = [word[0].lower() for word in title.split()]
+            thumbnail_name =  ''.join(first_letters)
+
             html_content += f"""<div class="publication-container">
             <div class="thumbnail-section">
-                <img src="assets/publications/paper_{len(lab_articles)-paper_id}.png" alt="Thumbnail">
+                <img src="assets/publications/{thumbnail_name}.png" alt="Thumbnail">
             </div>
             <div class="info-section">      
                 <h3>{title}</h3>
