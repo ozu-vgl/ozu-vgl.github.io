@@ -1,0 +1,43 @@
+name: Update News
+
+on:
+  schedule:
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+jobs:
+  generate-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install Dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r utils/requirements.txt
+
+      - name: Get New News
+        run: |
+          source venv/bin/activate
+          python3 utils/news_creation.py
+
+      - name: Update index.html
+        run: |
+          source venv/bin/activate
+          python3 utils/copy_news.py
+
+      - name: Commit Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git commit -m "Update News content" || echo "Nothing to push"
+          git push
