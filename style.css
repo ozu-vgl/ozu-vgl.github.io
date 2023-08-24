@@ -91,6 +91,11 @@ nav li a {
 
 nav li a:hover {
   color: white;
+  background-color: rgb(80, 80, 80);
+}
+
+.current-page a {
+  color: white;
   background-color: black;
 }
 
