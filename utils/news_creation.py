@@ -29,7 +29,7 @@ def sort(data):
 
 if __name__ == "__main__":
     csv_file_path = "assets/news/news.csv"
-    data = np.genfromtxt(csv_file_path, delimiter=",", dtype=str, skip_header=1, usecols=(0, 1))
+    data = np.genfromtxt(csv_file_path, delimiter=";", dtype=str, skip_header=1, usecols=(0, 1))
     data = sort(data)
     content = create_html(data)
     with open("utils/news.html", "w", encoding="utf-8") as html_file:
