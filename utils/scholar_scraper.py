@@ -57,10 +57,12 @@ def parse_articles(soup):
 def to_html(articles, start_year):
     lab_articles = [article for article in articles if int(article["year"]) >= start_year]
     html_content = f"""
+        <!--
         <div class="announcement-container">
             <p>Our website is still under development; some content might be incomplete or missing.</p>
         </div>
-
+        -->
+ 
         <h2>Publications</h2>
         <div class="line"></div>
 
