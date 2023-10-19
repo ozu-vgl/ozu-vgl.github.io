@@ -39,5 +39,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add publications.html
+          git add utils/scraped_publications.html
           git commit -m "Update HTML content" || echo "Nothing to push"
           git push
