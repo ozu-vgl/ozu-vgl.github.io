@@ -260,6 +260,7 @@ nav li a:hover {
 }
 
 .lecture-container {
+  flex-basis: 80%;
   border: 1px solid #ccc;
   padding: 20px;
   margin-bottom: 20px;
@@ -284,4 +285,10 @@ nav li a:hover {
   border: 2px solid rgb(0, 0, 128);
   border-radius: 10px;
   opacity: 60;
+}
+
+.application-instructions {
+  flex-basis: 80%;
+  padding: 20px;
+  margin-bottom: 20px;
 }
