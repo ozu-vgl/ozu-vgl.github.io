@@ -11,7 +11,7 @@ def create_html(data):
     for i, row in enumerate(data):
         date = convert_date(row[0])
         content = row[1]
-        container = "news-first" if i == 0 else "news"
+        container = "container-border-top-bottom"
         html_content += f"""        
         <div class="{container}">
             <h4>{date}</h4>
