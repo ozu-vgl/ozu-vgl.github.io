@@ -98,18 +98,18 @@ def to_html(articles, start_year):
             first_letters = [word[0].lower() for word in title.split()]
             thumbnail_name =  ''.join(first_letters)
 
-            html_content += f"""<div class="publication-container">
+            html_content += f"""<div class="container-2col-border-all">
             <div class="thumbnail-section">
                 <img src="assets/publications/{thumbnail_name}.png" alt="Thumbnail">
             </div>
-            <div class="info-section">      
+            <div>      
                 <h3>{title}</h3>
                 <p>Published in: {journal}</p>
                 <p>Authors: {authors}</p>
                 <p>Year: {year}</p>
             </div>
             </div>
-        """
+            """
     return html_content
 
 if __name__ == "__main__":
