@@ -2,7 +2,7 @@ name: Update Publications
 
 on:
   schedule:
-    - cron: "0 18 * * *"
+    - cron: "0 18 1 * *"
   workflow_dispatch:
 
 jobs:
