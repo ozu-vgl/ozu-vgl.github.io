@@ -8,7 +8,7 @@ with open("utils/news.html", "r", encoding="utf-8") as file:
 insert_position = html_content.find('<news>') + 6
 
 # Deleting the old news
-html_content = html_content[:insert_position] + html_content[html_content.find("</news>") - 7 :]
+html_content = html_content[:insert_position] + html_content[html_content.find("</news>") - 6 :]
 
 # Inserting the new news
 html_content = html_content[:insert_position] + news_content + html_content[insert_position:]
