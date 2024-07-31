@@ -161,7 +161,7 @@ nav li a:hover {
 
 .container-2col-border-all{
   display: grid;
-  grid-template-columns: 0.2fr 1fr;
+  grid-template-columns: 0.15fr 1fr;
   grid-gap: 20px;
   margin-bottom: 20px;
   text-align: left;
@@ -170,9 +170,11 @@ nav li a:hover {
 }
 
 .container-2col-border-all img {
-  width: 100%;
-  max-width: 200px;
+  width: auto;
   height: auto;
+  max-height: 180px;
+  max-width: 180px;
+  object-fit: contain;
 }
 
 .container-2col-border-all h3 {
@@ -185,8 +187,8 @@ nav li a:hover {
 
 .thumbnail-section {
   display: flex;              /* This line makes the thumbnail-section a flex container */
-  justify-content: center;    /* This line centers the items horizontally */
-  align-items: center;        /* This line centers the items vertically */
+  justify-content: left;    /* This line centers the items horizontally */
+  align-items: left;        /* This line centers the items vertically */
   flex-basis: 20%;
 }
 
